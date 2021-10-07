@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1061610992342",
+    "project_id": "flutter-news-appp",
+    "storage_bucket": "flutter-news-appp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061610992342:android:487fd2deabef9df7c04f77",
+        "android_client_info": {
+          "package_name": "com.newsapp.newzi_world"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061610992342-oiuv23411tc9t9s2854sg25ugutvo5op.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPOyO3wsXMDyuAeouboyLLpe4Oaq3bLns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061610992342-oiuv23411tc9t9s2854sg25ugutvo5op.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
