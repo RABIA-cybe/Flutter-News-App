@@ -26,24 +26,24 @@ class _HomeState extends State<Home> {
         bottom: TabBar(
           isScrollable: true,
           indicatorSize: TabBarIndicatorSize.label,
-          unselectedLabelColor: Colors.white,
-          labelColor: Colors.yellow,
+          unselectedLabelColor: Colors.white60,
+          labelColor: Colors.white,
           indicatorColor: Theme.of(context).colorScheme.onPrimary,
           tabs: [
              Container(
-                    width: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: Tab(child: Text("Top Stories")),
                  ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: Tab(child: Text("Headlines")),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: Tab(child: Text("Popular News")),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     child: Tab(child: Text("Sports News")),
                   ),
           ],

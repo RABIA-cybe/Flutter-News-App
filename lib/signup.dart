@@ -18,31 +18,64 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 final TextEditingController usernameController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
+final TextEditingController confirmpasswordController = TextEditingController();
+// void confirmation(){
+//  String password = passwordController.text;
+//  String confirmpassword = confirmpasswordController.text;
+
+//  if (confirmpassword == password) {
+//   signup();
+//  }
+//  else if (confirmpassword != password) {
+//    showDialog(context: context, builder: (BuildContext context){
+//     return AlertDialog(content: Text( "Password did not matched to the confirm password field. Try Again "),); });
+//  } 
+   
+// }
 
 void signup() async{
  final String username = usernameController.text;
     final String email = emailController.text;
     final String password = passwordController.text;
+    String confirmpassword = confirmpasswordController.text;
 
   try {
+     if (confirmpassword == password) {
+  signup();
+ }
+ else if (confirmpassword != password) {
+   showDialog(context: context, builder: (BuildContext context){
+    return AlertDialog(content: Text( "Password did not matched to the confirm password field. Try Again "),); });
+ } 
+
      final UserCredential user = await auth.createUserWithEmailAndPassword(email: email, password: password);
-     db.collection("users").doc(user.user.uid).set({
+    await db.collection("users").doc(user.user.uid).set({
        "email": emailController.text,
        "username": usernameController.text,
      });
      
      print("user is registered");
+     showDialog(context: context, builder: (BuildContext context){
+    return AlertDialog(content: Text( "Successfully Registered. "),);
+  });
     } 
+    
     on FirebaseAuthException catch (e) {
   if (e.code == 'weak-password') {
     print('The password provided is too weak.');
   } else if (e.code == 'email-already-in-use') {
     print('The account already exists for that email.');
   }
-} catch (e) {
+showDialog(context: context, builder: (BuildContext context){
+    return AlertDialog(content: Text('$e' " Please Try Again"),);
+  });
+
+} 
+
+catch (e) {
   print(e);
 }
-}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +148,7 @@ void signup() async{
            Container(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: TextField(
+              controller: confirmpasswordController,
               obscureText: true,
               decoration: InputDecoration(
                 border:
@@ -130,7 +164,7 @@ void signup() async{
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   primary: Colors.purple,
                   textStyle: TextStyle(
@@ -141,6 +175,19 @@ void signup() async{
                 child: Text('Sign Up'),
                 onPressed: signup,
               )),
+            //   SizedBox(height: 20,),
+            //   ConstrainedBox(
+              
+            //   constraints: BoxConstraints.tightFor(width: 50, height: 50),
+            //   child: ElevatedButton(
+                
+            //     child: Text('Button', style: TextStyle(fontSize: 14),),
+            //     onPressed: () {},
+            //     style: ElevatedButton.styleFrom(
+            //       shape: CircleBorder(),
+            //     ),
+            //   ),
+            // ),
                Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

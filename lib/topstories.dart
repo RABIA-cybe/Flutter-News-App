@@ -1,5 +1,12 @@
+// import 'dart:convert';
+
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+
 
 class TopStories extends StatefulWidget {
   const TopStories({ Key? key }) : super(key: key);
@@ -9,83 +16,198 @@ class TopStories extends StatefulWidget {
 }
 
 class _TopStoriesState extends State<TopStories> {
+var news = [];
+  getnews() async{
+   var dio = Dio();
+   
+  final response = await dio.get('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=f37eb6d921ff4ca287b3e54573aa50b8');
+  var jsonData = jsonDecode(response.data);
+   for (var i in jsonData){
+   NewsModel newsdata = NewsModel(i['title'], i['description'],i['image'], i['time']);
+  news.add(newsdata);
+ }
+  
+  print(news.length);
+  }
+
+//   getnews() async{
+//   var news = [];
+//   var response = await http.get(Uri.https('newsapi.org', 'v2/top-headlines?sources=bbc-news&apiKey=f37eb6d921ff4ca287b3e54573aa50b8'));
+//   var jsonData = jsonDecode(response.body);
+  
+//   // for (var i in jsonData){
+//   //   UserModel user = UserModel(i['name'], i['username'],i['email']);
+//   //   users.add(user);
+//   // }
+//   print(jsonData);
+// }
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: ListView(
         
         children: [
           Container(
-            
+            decoration: BoxDecoration(border: Border.all(width: 1)),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
+              
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.network("https://i.guim.co.uk/img/media/a1d0b3fc6d90672ffe41c31e05664cba8e6751a4/0_345_4032_2418/master/4032.jpg?width=1200&quality=85&auto=format&fit=max&s=2b1eaa6288dae997f95a9e7c5d9fcaf2", 
-                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height * 0.3,),
+                Image.network("https://ichef.bbci.co.uk/news/1024/branded_news/C6B6/production/_117307805_gettyimages-brazil-creditignaciopalacios-rightscleared.jpg", 
+                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height ,),
                 Expanded(
-                  child: Column(
+                  child: 
+                Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                    children: [
-                     Text("Authorities should keep  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
-                     Text("the term ‘shark attack’  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
-                     Text("Authorities should take care   "),
-                     Text("not to remove “attack”  "),
+                     
+                     Text("Facebook to act on illegal sale of Amazon rainforest  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
+                     SizedBox(height: 20,),
+                     Text("The social network changes its policy following a BBC investigation. "),
+                     SizedBox(height: 70,),
+                     Align( alignment: Alignment.bottomLeft, child: Text(" 2 hours ago")),
                    ],
                   ),
                 ),
+            
               ],
             ),
           ),
 
           Container(
-            
+            decoration: BoxDecoration(border: Border.all(width: 1)),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
+              
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.network("https://i.guim.co.uk/img/media/a1d0b3fc6d90672ffe41c31e05664cba8e6751a4/0_345_4032_2418/master/4032.jpg?width=1200&quality=85&auto=format&fit=max&s=2b1eaa6288dae997f95a9e7c5d9fcaf2", 
-                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height * 0.3,),
+                Image.network("https://ichef.bbci.co.uk/news/1024/branded_news/1FF2/production/_120887180_mediaitem120887176.jpg", 
+                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height ,),
                 Expanded(
-                  child: Column(
+                  child: 
+                Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                    children: [
-                     Text("Authorities should keep  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
-                     Text("the term ‘shark attack’  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
-                     Text("Authorities should take care   "),
-                     Text("not to remove “attack”  "),
+                     
+                     Text("Rare Mughal era spectacles to be auctioned by Sotheby's", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
+                     SizedBox(height: 20,),
+                     Text("Two diamond and emerald spectacles from an unknown Indian princely treasury are to be sold in October."),
+                     SizedBox(height: 50,),
+                     Align( alignment: Alignment.bottomLeft, child: Text(" 3 hours ago")),
                    ],
                   ),
                 ),
+            
               ],
             ),
           ),
-          Container(
-            
+
+        Container(
+            decoration: BoxDecoration(border: Border.all(width: 1)),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.3,
             child: Row(
+              
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.network("https://i.guim.co.uk/img/media/a1d0b3fc6d90672ffe41c31e05664cba8e6751a4/0_345_4032_2418/master/4032.jpg?width=1200&quality=85&auto=format&fit=max&s=2b1eaa6288dae997f95a9e7c5d9fcaf2", 
-                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height * 0.3,),
+                Image.network("https://ichef.bbci.co.uk/news/1024/branded_news/13CD/production/_120996050_tiwa.jpg",
+                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height ,),
                 Expanded(
-                  child: Column(
+                  child: 
+                Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                    children: [
-                     Text("Authorities should keep  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
-                     Text("the term ‘shark attack’  ", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
-                     Text("Authorities should take care   "),
-                     Text("not to remove “attack”  "),
+                     
+                     Text("Nigeria's Tiwa Savage reveals sex tape blackmail", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
+                     SizedBox(height: 20,),
+                     Text("The Afrobeats star says she is refusing to pay up over a tape that was mistakenly put onto social media."),
+                     SizedBox(height: 50,),
+                     Align( alignment: Alignment.bottomLeft, child: Text(" 2 hours ago")),
                    ],
                   ),
                 ),
+            
               ],
             ),
           ),
+        
+        Container(
+            decoration: BoxDecoration(border: Border.all(width: 1)),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Row(
+              
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.network("https://ichef.bbci.co.uk/news/1024/branded_news/4A7D/production/_120996091_gettyimages-1235763490-1.jpg",
+                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height ,),
+                Expanded(
+                  child: 
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     
+                     Text("Afghanistan: Deadly attack hits Kunduz mosque during Friday prayers", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
+                     SizedBox(height: 20,),
+                     Text("A suicide bomber targets a mosque used by the minority Shia community in Kunduz during Friday prayers."),
+                     SizedBox(height: 50,),
+                     Align( alignment: Alignment.bottomLeft, child: Text(" 1 hours ago")),
+                   ],
+                  ),
+                ),
+            
+              ],
+            ),
+          ),
+      
+        Container(
+            decoration: BoxDecoration(border: Border.all(width: 1)),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Row(
+              
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.network("https://ichef.bbci.co.uk/news/1024/branded_news/83B3/production/_115651733_breaking-large-promo-nc.png",
+                width: MediaQuery.of(context).size.width * 0.4 ,height: MediaQuery.of(context).size.height ,),
+                Expanded(
+                  child: 
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     
+                     Text("Nobel Peace Prize: Journalists Maria Ressa and Dmitry Muratov win", style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold, fontSize: 20),),
+                     SizedBox(height: 20,),
+                     Text("The Philippine and Russian reporters win jointly for their fight to defend freedom of expression."),
+                     SizedBox(height: 50,),
+                     Align( alignment: Alignment.bottomLeft, child: Text(" 2 hours ago")),
+                   ],
+                  ),
+                ),
+            
+              ],
+            ),
+          ),
+
+
+          
         ],),
     );
   }
+}
+
+
+class NewsModel{
+  var title ;
+  var description;
+  var image;
+  var time;
+
+  NewsModel(this.title, this.description, this.image, this .time);
+
 }

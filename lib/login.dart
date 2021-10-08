@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:newzi_world/forgot_pass.dart';
 import 'package:newzi_world/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
@@ -14,6 +16,38 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+FirebaseFirestore db = FirebaseFirestore.instance;
+
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+
+void signin() async {
+  final String email = emailController.text;
+    final String password = passwordController.text;
+
+  try {
+   final UserCredential user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: email,
+    password: password
+  );
+  print("succesfully logged in");
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    print('No user found for that email.');
+
+  } else if (e.code == 'wrong-password') {
+    print('Wrong password provided for that user.');
+  }
+  showDialog(context: context, builder: (BuildContext context){
+    return AlertDialog(content: Text('$e' " Please Try Again"),);
+  });
+} catch(e){ print("error");}
+}
+
+
+
   @override
 
   Widget build(BuildContext context) {
@@ -47,10 +81,11 @@ class _LoginState extends State<Login> {
           Container(
             padding: EdgeInsets.all(10),
             child: TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                labelText: 'User Name',
+                labelText: 'Email',
                 prefixIcon: Icon(Icons.person , color: Colors.purple,)
               ),
             ),
@@ -58,6 +93,7 @@ class _LoginState extends State<Login> {
           Container(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: TextField(
+              controller: passwordController,
              obscureText: true,
               decoration: InputDecoration(
                 border:
@@ -91,10 +127,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 child: Text('Login'),
-                onPressed: () {
-                  // print(nameController.text);
-                  // print(passwordController.text);
-                },
+                onPressed: signin
               )),
           Container(
             child: Row(
